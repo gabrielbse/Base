@@ -1,72 +1,47 @@
-@extends('layouts.auth')
-
-@section('htmlheader_title')
-    Password recovery
-@endsection
+@extends('layouts.app')
 
 @section('content')
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">Reset Password</div>
 
-<body class="login-page">
-    <div class="login-box">
-        <div class="login-logo">
-            <a href="{{ url('/home') }}"><b>Request</b></a>
-            <center><h5>Sistema de Reservas e Requisições</h5></center>
-        </div><!-- /.login-logo -->
+                <div class="panel-body">
+                    @if (session('status'))
+                        <div class="alert alert-success">
+                            {{ session('status') }}
+                        </div>
+                    @endif
 
-        @if (session('status'))
-            <div class="alert alert-success">
-                {{ session('status') }}
-            </div>
-        @endif
+                    <form class="form-horizontal" method="POST" action="{{ route('password.email') }}">
+                        {{ csrf_field() }}
 
-        @if (count($errors) > 0)
-            <div class="alert alert-danger">
-                <strong>Whoops!</strong> {{ trans('adminlte_lang::message.someproblems') }}<br><br>
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 
-        <div class="login-box-body">
-            <p class="login-box-msg">Recuperar sua senha</p>
-            <form action="{{ url('/password/email') }}" method="post">
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <div class="form-group has-feedback">
-                    <input type="email" class="form-control" placeholder="Email" name="email" value="{{ old('email') }}"/>
-                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                            <div class="col-md-6">
+                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+
+                                @if ($errors->has('email'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
+                                <button type="submit" class="btn btn-primary">
+                                    Send Password Reset Link
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-
-                <div class="row">
-                    <div class="col-xs-2">
-                    </div><!-- /.col -->
-                    <div class="col-xs-8">
-                        <button type="submit" class="btn btn-primary btn-block btn-flat">Redefinir Senha</button>
-                    </div><!-- /.col -->
-                    <div class="col-xs-2">
-                    </div><!-- /.col -->
-                </div>
-            </form>
-
-            <a href="{{ url('/login') }}">Entrar</a><br>
-
-        </div><!-- /.login-box-body -->
-
-    </div><!-- /.login-box -->
-
-    @include('layouts.partials.scripts_auth')
-
-    <script>
-        $(function () {
-            $('input').iCheck({
-                checkboxClass: 'icheckbox_square-blue',
-                radioClass: 'iradio_square-blue',
-                increaseArea: '20%' // optional
-            });
-        });
-    </script>
-</body>
-
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

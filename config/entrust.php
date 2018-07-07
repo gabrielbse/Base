@@ -73,14 +73,14 @@ return [
     | database.
     |
     */
-    'role_user_table' => 'users',
+    'role_user_table' => 'role_user',
 
     /*
     |--------------------------------------------------------------------------
     | User Foreign key on Entrust's role_user Table (Pivot)
     |--------------------------------------------------------------------------
     */
-    'user_foreign_key' => 'id',
+    'user_foreign_key' => 'user_id',
 
     /*
     |--------------------------------------------------------------------------

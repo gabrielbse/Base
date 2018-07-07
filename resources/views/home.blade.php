@@ -1,28 +1,23 @@
 @extends('layouts.app')
 
-@section('htmlheader_title')
-	Home
-@endsection
+@section('content')
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">Dashboard</div>
 
-@section('contentheader_title')
-	<div class="pull-left">
-		<h2>Home</h2>
-	</div>
-@endsection
+                <div class="panel-body">
+                    @if (session('status'))
+                        <div class="alert alert-success">
+                            {{ session('status') }}
+                        </div>
+                    @endif
 
-@section('main-content')
-
-	<div class="container spark-screen">
-		<div class="row">
-			<div class="col-md-10 col-md-offset-1">
-				<div class="panel panel-default">
-					<div class="panel-heading">Home</div>
-
-					<div class="panel-body">
-						{{ trans('adminlte_lang::message.logged') }}
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                    You are logged in!
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
